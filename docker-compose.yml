@@ -31,6 +31,17 @@ services:
       - redis
       - rabbitmq
 
+  data_processer2:
+    build: ./data_processer
+    environment:
+      - "RABBITMQ_HOST=rabbitmq"
+      - "REDIS_HOST=redis"
+      - "GELF_HOST=graylog"
+    restart: on-failure
+    depends_on:
+      - redis
+      - rabbitmq
+
   api:
     build: ./api
     environment:
